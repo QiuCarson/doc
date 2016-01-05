@@ -18,7 +18,7 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body >
     <div ui-view></div>
    <script src="/models/jquery/jquery.min.js"></script>
 
@@ -37,6 +37,6 @@
    var is_login = '<?php echo (new App\Models\User)->isAdminLogin() ?>';
     </script>
    <script src="/static/js/app.js"></script>
-    <!--<script src="/static/js/controllers.js"></script>-->
+  <script src="/static/js/controllers.js"></script>
   </body>
 </html>

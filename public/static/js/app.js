@@ -3,6 +3,10 @@ var default_tpl = is_login?'app/dashboard':'auth/signin';
 
 var admin_url = base_url;
 
+var template_admin_base_url="/app/admin/tpl/";
+
+var template_admin_base_css_url="/app/admin/css/";
+
 if(!is_login){
     //window.location.href=base_url+'#auth/signin';
 }
@@ -19,17 +23,17 @@ var myApp = angular.module("myApp", ["ui.router"])
     )
 .config(function ($stateProvider, $urlRouterProvider) {
  
-     //$urlRouterProvider.when("", "/PageTab");
-    $urlRouterProvider.otherwise(default_tpl);
+     //$urlRouterProvider.when("", "signin");
+    //$urlRouterProvider.otherwise(default_tpl);
 
      $stateProvider
         .state("auth", {
             url: "/auth",
-            templateUrl: "test.html"
+            templateUrl: '<div class="container" ui-view></div>'
         })
-        .state("PageTab.Page1", {
-            url:"/Page1",
-            templateUrl: "Page1.html"
+        .state("signin", {
+            url:"/auth/signin",
+            templateUrl: template_admin_base_url+"auth/signin.html"
         })
         .state("PageTab.Page2", {
             url:"/Page2",
