@@ -18,7 +18,7 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body >
+  <body ng-controller="AppCtrl">
     <div ui-view></div>
    <script src="/models/jquery/jquery.min.js"></script>
 

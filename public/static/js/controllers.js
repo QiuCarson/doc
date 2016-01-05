@@ -1,5 +1,10 @@
+
+angular.module('myApp',[])
+.controller('AppCtrl',['$scope',function($scope){
+ alert("ddd");
+}])
+
 /*
-angular.module('myApp.controller',[])
 .controller('SigninFormController',['$scope', '$http', '$state', function($scope, $http, $state) {
      $scope.login = function() {
          $http.post(backend_url + '/auth/login', {email: $scope.user.email, password: $scope.user.password})
@@ -14,4 +19,4 @@ angular.module('myApp.controller',[])
             $scope.message = '用户名或密码不正确！';
           });
      }
-}])*/
+}]);*/
