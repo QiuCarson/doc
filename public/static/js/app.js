@@ -23,17 +23,29 @@ var myApp = angular.module("myApp", ["ui.router"])
     )
 .config(function ($stateProvider, $urlRouterProvider) {
  
-     //$urlRouterProvider.when("", "signin");
+     $urlRouterProvider.when("", "auth/signin");
     //$urlRouterProvider.otherwise(default_tpl);
 
      $stateProvider
-        .state("auth", {
-            url: "/auth",
-            templateUrl: '<div class="container" ui-view></div>'
-        })
+        
         .state("signin", {
             url:"/auth/signin",
-            templateUrl: template_admin_base_url+"auth/signin.html"
+            templateUrl: template_admin_base_url+"auth/signin.html",
+            controller: function($scope, $http, $state) {
+                $scope.login = function() {
+                 $http.post( '/auth/login', {email: $scope.user.email, password: $scope.user.password})
+                  .then(function(response) {
+                    if ( !response.data.status ) {
+                      $scope.message = response.data.message;
+                    }else{
+                        $scope.success = '登陆成功';
+                        $state.go('dashboard');
+                    }
+                  }, function(x) {
+                    $scope.message = '用户名或密码不正确！';
+                  });
+             }
+            }
         })
         .state("PageTab.Page2", {
             url:"/Page2",
@@ -44,6 +56,8 @@ var myApp = angular.module("myApp", ["ui.router"])
             templateUrl: "Page3.html"
         });
 });
+
+
 /*
 var app = angular.module('myApp',[
     'ui.router'

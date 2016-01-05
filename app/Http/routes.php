@@ -21,3 +21,11 @@ Route::controllers([
 
 Route::get('/admin', ['as' =>'admin','uses'=>'Admin\HomeController@index']);
 
+Route::post('/admin/auth/login', 'uses'=>'Admin\HomeController@getLogin');
+
+
+/*
+Blade::setContentTags('<%', '%>'); // For variables and all things Blade.
+Blade::setEscapedContentTags('<%%', '%%>'); // For escaped data.
+*/
+
