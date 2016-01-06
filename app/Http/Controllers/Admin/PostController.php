@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Post;
+
 class PostController extends Controller
 {
     /**
@@ -14,9 +16,22 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($current_page)
     {
-        //
+        
+        $current_page=$current_page?$current_page:1;
+        $current_page=$current_page-1;
+
+        $page=10;
+        //echo $current_page*$page;exit;
+        $post = Post::offset($current_page*$page)->limit($page);
+        $posts['data']=$post->get();
+
+        $posts['count'] =Post::count();
+        $posts['pageSize']=$page;
+        $posts['pageSize']=$page;
+
+        return response()->json($posts);
     }
 
     /**

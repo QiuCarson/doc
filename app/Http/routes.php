@@ -24,6 +24,15 @@ Route::get('/admin', ['as' =>'admin','uses'=>'Admin\HomeController@index']);
 
 Route::post('/auth/login', ['uses'=>'Admin\HomeController@postLogin']);
 
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth'],function(){
+
+    
+    Route::group(['prefix' => 'posts'], function () {
+        Route::get('/list/{current_page}', 'PostController@index');
+        /*->where('current_page', '\d+');*/
+        Route::get('/delete/{id}', 'PostController@delete');
+    });
+});
 
 /*
 Blade::setContentTags('<%', '%>'); // For variables and all things Blade.

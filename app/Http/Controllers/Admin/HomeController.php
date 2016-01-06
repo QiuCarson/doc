@@ -11,6 +11,7 @@ use Auth;
 
 class HomeController extends Controller
 {
+     protected $redirectAfterLogout = '/admin';
     /**
      * Display a listing of the resource.
      *

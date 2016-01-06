@@ -8,7 +8,9 @@ var template_admin_base_url="/app/admin/tpl/";
 var template_admin_base_css_url="/app/admin/css/";
 
 if(!is_login){
-    //window.location.href=base_url+'#auth/signin';
+    window.location.href=base_url+'#auth/signin';
+}else{
+     window.location.href=base_url+'#mian/dashboard';
 }
 var myApp = angular.module("myApp", ["ui.router"])
 .run(
@@ -65,11 +67,74 @@ var myApp = angular.module("myApp", ["ui.router"])
         })
         .state("main.posts.list", {
             url:"/list",
-            templateUrl: template_admin_base_url+'posts/list.html'
+            templateUrl: template_admin_base_url+'posts/list.html',
+            controller: function($scope, $http, $state) {
+                $scope.currentPage = 1;
+
+                $scope.load=function(){
+                    $http.get( '/admin/posts/list/'+$scope.currentPage)
+                        .then(function(response) {
+                       
+                        $scope.list=response.data.data; 
+                        $scope.count = response.data.count; 
+                        $scope.pageSize=response.data.pageSize; 
+                        $scope.totalPage = Math.ceil($scope.count / $scope.pageSize);   
+                        // console.log($scope.totalPage );
+                        //生成数字链接
+                        //$scope.pageLength=$scope.totalPage>5?5:$scope.totalPage;
+
+
+                        if ($scope.currentPage > 1 && $scope.currentPage < $scope.totalPage) {
+                            
+                            $scope.pages = [
+                                $scope.currentPage - 1,
+                                $scope.currentPage,
+                                $scope.currentPage + 1
+                            ];
+                        } else if ($scope.currentPage == 1 && $scope.totalPage > 1) {
+                            $scope.pages = [
+                                $scope.currentPage,
+                                $scope.currentPage + 1
+                            ];
+                        } else if ($scope.currentPage == $scope.totalPage && $scope.totalPage > 1) {
+                            $scope.pages = [
+                                $scope.currentPage - 1,
+                                $scope.currentPage
+                            ];
+                        }
+
+
+
+                    });
+                }
+                $scope.load();
+                $scope.next = function () {                    
+                    if ($scope.currentPage < $scope.totalPage) {
+                        $scope.currentPage++;
+                        $scope.load();
+                    }
+                };
+
+                $scope.prev = function () {
+                    if ($scope.currentPage > 1) {$scope.currentPage--;$scope.load();}
+                };
+
+                $scope.loadPage = function (page) {
+                    $scope.currentPage = page;$scope.load();
+                };
+                
+                $scope.deleted =function(id){
+                    if(!confirm("确定删除？")){
+                        return false;
+                    }
+
+                }
+                
+            }
         })
-        .state("PageTab.Page3", {
-            url:"/Page3",
-            templateUrl: "Page3.html"
+        .state("main.posts.add", {
+            url:"/add",
+            templateUrl: template_admin_base_url+'posts/add.html',
         });
 });
 

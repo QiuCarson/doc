@@ -24,8 +24,9 @@
 
     <script src="/models/angularjs/angular.min.js"></script>
     <script src="/models/angularjs/angular-ui-router.min.js"></script>
+    <script src="/models/angularjs/tm.pagination.js"></script>
     
- <!-- <script src="/models/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>-->
+  <script src="/models/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
   
    <script>
     $.ajaxSetup({

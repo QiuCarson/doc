@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class RestructurePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -32,8 +32,7 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('posts_category2');
+            //
         });
-
     }
 }
