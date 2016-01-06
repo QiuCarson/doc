@@ -14,14 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+/*
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
-]);
+]);*/
 
 Route::get('/admin', ['as' =>'admin','uses'=>'Admin\HomeController@index']);
 
-Route::post('/admin/auth/login', 'uses'=>'Admin\HomeController@getLogin');
+Route::post('/auth/login', ['uses'=>'Admin\HomeController@postLogin']);
 
 
 /*

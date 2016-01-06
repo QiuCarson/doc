@@ -16,8 +16,8 @@ var myApp = angular.module("myApp", ["ui.router"])
     //$rootScope 根，$state 不是什么，$stateParams区分url参数，
          [          '$rootScope', '$state', '$stateParams',
             function ($rootScope,   $state,   $stateParams) {
-                $rootScope.$state = $state;
-                $rootScope.$stateParams = $stateParams;
+                //$rootScope.$state = $state;
+               // $rootScope.$stateParams = $stateParams;
             }
           ]
     )
@@ -27,19 +27,23 @@ var myApp = angular.module("myApp", ["ui.router"])
     //$urlRouterProvider.otherwise(default_tpl);
 
      $stateProvider
-        
-        .state("signin", {
-            url:"/auth/signin",
+        .state('auth', {
+                url: '/auth',
+                template: '<div ui-view class="container"></div>',
+            })
+        .state("auth.signin", {
+            url:"/signin",
             templateUrl: template_admin_base_url+"auth/signin.html",
             controller: function($scope, $http, $state) {
                 $scope.login = function() {
                  $http.post( '/auth/login', {email: $scope.user.email, password: $scope.user.password})
                   .then(function(response) {
+                    console.log(response);
                     if ( !response.data.status ) {
                       $scope.message = response.data.message;
                     }else{
                         $scope.success = '登陆成功';
-                        $state.go('dashboard');
+                        $state.go('main.dashboard');
                     }
                   }, function(x) {
                     $scope.message = '用户名或密码不正确！';
@@ -47,9 +51,21 @@ var myApp = angular.module("myApp", ["ui.router"])
              }
             }
         })
-        .state("PageTab.Page2", {
-            url:"/Page2",
-            templateUrl: "Page2.html"
+        .state('main', {
+                url: '/mian',
+                templateUrl: template_admin_base_url+'main.html'
+            })
+        .state('main.dashboard', {
+                url: '/dashboard',
+                templateUrl: template_admin_base_url+'dashboard.html'
+            })
+        .state("main.posts", {
+            url:"/posts",
+            templateUrl: template_admin_base_url+'posts/index.html'
+        })
+        .state("main.posts.list", {
+            url:"/list",
+            templateUrl: template_admin_base_url+'posts/list.html'
         })
         .state("PageTab.Page3", {
             url:"/Page3",

@@ -1,7 +1,7 @@
 
 angular.module('myApp',[])
 .controller('addcc',['$scope',function($scope){
- alert("ddd");
+ //alert("ddd");
   //$scope.success = '登陆成功';
 }])
 
