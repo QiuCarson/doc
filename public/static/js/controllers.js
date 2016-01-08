@@ -91,8 +91,8 @@ angular.module("myApp.Controllers", ["ui.router"])
                 $scope.create = function(){
                     $http.post( '/admin/posts/create', {
                         posts_title: $scope.posts.posts_title, 
-                        posts_category1: $scope.posts.posts_category1,
-                        posts_category2: $scope.posts.posts_category2, 
+                        website: $scope.posts.website,
+                        project: $scope.posts.project, 
                         posts_description: $scope.posts.posts_description, 
                         posts_content: $scope.posts.posts_content, 
                     })
@@ -115,8 +115,8 @@ angular.module("myApp.Controllers", ["ui.router"])
                 $scope.edit = function(){
                     $http.put( '/admin/posts/edit/'+id, {
                         posts_title: $scope.posts.posts_title, 
-                        posts_category1: $scope.posts.posts_category1,
-                        posts_category2: $scope.posts.posts_category2, 
+                        website: $scope.posts.website,
+                        project: $scope.posts.project, 
                         posts_description: $scope.posts.posts_description, 
                         posts_content: $scope.posts.posts_content,                         
                     })

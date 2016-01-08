@@ -32,7 +32,7 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('posts_category2');
+          //  $table->dropColumn('posts_category2');
         });
 
     }
