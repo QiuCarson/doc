@@ -16,8 +16,8 @@ class CreatePostsTable extends Migration
             $table->increments('posts_id');
             $table->string('posts_title');
             $table->string('posts_description');
-            $table->string('posts_category1');
-            $table->string('posts_category2');
+            $table->integer('website');
+            $table->integer('project');
             $table->text('posts_content');
             $table->timestamps();
             $table->timestamp('published_at')->index();

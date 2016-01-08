@@ -28,6 +28,9 @@
     
   <script src="/models/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
   
+  <!--编辑器-->
+<link rel="stylesheet" type="text/css" href="/models/wangEditor/css/wangEditor-1.3.13.2.css">
+<script type="text/javascript" src='/models/wangEditor/js/wangEditor-1.3.13.2.min.js'></script>
    <script>
     $.ajaxSetup({
         headers: {
@@ -43,6 +46,6 @@
 
 </script>
  
-  <!--<script src="/static/js/controllers.js"></script>-->
+  <script src="/static/js/controllers.js"></script>
   </body>
 </html>

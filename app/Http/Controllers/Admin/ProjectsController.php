@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\Post;
+use App\Models\Project;
 
-class PostController extends Controller
+class ProjectsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,10 +24,10 @@ class PostController extends Controller
 
         $page=10;
         //echo $current_page*$page;exit;
-        $post = Post::orderby('posts_id','desc')->offset($current_page*$page)->limit($page);
+        $post = Project::orderby('projects_id','desc')->offset($current_page*$page)->limit($page);
         $posts['data']=$post->get();
 
-        $posts['count'] =Post::count();
+        $posts['count'] =Project::count();
         $posts['pageSize']=$page;
         $posts['pageSize']=$page;
 
@@ -41,13 +41,9 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        $data['posts_title'] = $request->input('posts_title');
-        $data['posts_description'] = $request->input('posts_description');
-        $data['posts_category1'] = $request->input('posts_category1');
-        $data['posts_category2'] = $request->input('posts_category2');
-        $data['posts_content'] = $request->input('posts_content');
+        $data['projects_name'] = $request->input('projects_name');
 
-        $id=Post::insertGetId($data);
+        $id=Project::insertGetId($data);
         if($id){
             return response()->json(['status'=>true,'message'=>'数据插入成功','data'=>$data]);
         }else{
@@ -65,7 +61,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $data['data']=Post::where('posts_id',$id)->first();
+        $data['data']=Project::where('projects_id',$id)->first();
         if($data['data']){
             $data['status']=true;
         }else{
@@ -83,15 +79,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data=Post::where('posts_id',$id)->first();
+        $data=Project::where('projects_id',$id)->first();
         if($data){
-            $posts['posts_title']=$request->input('posts_title');
-            $posts['posts_description']=$request->input('posts_description');
-            $posts['posts_category1']=$request->input('posts_category1');
-            $posts['posts_category2']=$request->input('posts_category2');
-            $posts['posts_content']=$request->input('posts_content');
+            $posts['projects_name']=$request->input('projects_name');
+            
 
-            $flag=Post::where('posts_id',$id)->update($posts);
+            $flag=Project::where('projects_id',$id)->update($posts);
             if($flag){
                 return response()->json(['status'=>true,'message'=>'数据修改成功']);
             }else{
@@ -112,7 +105,7 @@ class PostController extends Controller
     {
         
         
-        $flag=Post::where('posts_id',$id)->delete();
+        $flag=Project::where('projects_id',$id)->delete();
         if($flag){
                 return response()->json(['status'=>true,'message'=>'数据删除成功']);
         }else{

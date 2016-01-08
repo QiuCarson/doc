@@ -1,28 +1,23 @@
 
-<h2 class="sub-header">接口列表</h2>
+<h2 class="sub-header">项目列表</h2>
           <div class="table-responsive ">
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>#id</th>
                   <th width="200">标题</th>
-                  <th >备注</th>
-                  <th width="150">项目</th>
-                  <th width="150">功能</th>
-                  <th width="200">操作</th>
+                  
+                  <th >操作</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="row in list">
-                  <td>{{row.posts_id}}</td>
-                  <td>{{row.posts_title}}</td>
-                  <td>{{row.posts_description}}</td>
+                  <td>{{row.projects_id}}</td>
+                  <td>{{row.projects_name}}</td>
                   
-                  <td>{{row.posts_category1}}</td>
-                  <td>{{row.posts_category2}}</td>
                   <td>
-                  <a type="button" class="btn btn-success" ui-sref="main.posts.edit({id:row.posts_id})" >编辑</a>
-                  <button type="button" class="btn btn-danger" ng-click="deleted({id:row.posts_id})" >删除</button>
+                  <a type="button" class="btn btn-success" ui-sref="main.websites.edit({id:row.projects_id})" >编辑</a>
+                  <button type="button" class="btn btn-danger" ng-click="deleted({id:row.projects_id})" >删除</button>
                   </td>
                 </tr>                
               </tbody>

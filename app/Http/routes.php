@@ -24,6 +24,8 @@ Route::get('/admin', ['as' =>'admin','uses'=>'Admin\HomeController@index']);
 
 Route::post('/auth/login', ['uses'=>'Admin\HomeController@postLogin']);
 
+Route::get('/auth/logout', ['uses'=>'Admin\HomeController@getLogout']);
+
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth'],function(){
 
     
@@ -31,6 +33,33 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
         Route::get('/list/{current_page}', 'PostController@index');
         /*->where('current_page', '\d+');*/
         Route::get('/delete/{id}', 'PostController@delete');
+        Route::post('/create', 'PostController@create');
+        Route::get('/edit/{id}', 'PostController@edit');
+        Route::put('/edit/{id}', 'PostController@update');
+        Route::delete('/delete/{id}', 'PostController@delete');
+
+    });
+
+    Route::group(['prefix' => 'websites'], function () {
+        Route::get('/list/{current_page}', 'WebsiteController@index');
+        /*->where('current_page', '\d+');*/
+        Route::get('/delete/{id}', 'WebsiteController@delete');
+        Route::post('/create', 'WebsiteController@create');
+        Route::get('/edit/{id}', 'WebsiteController@edit');
+        Route::put('/edit/{id}', 'WebsiteController@update');
+        Route::delete('/delete/{id}', 'WebsiteController@delete');
+
+    });
+
+    Route::group(['prefix' => 'projects'], function () {
+        Route::get('/list/{current_page}', 'ProjectsController@index');
+        /*->where('current_page', '\d+');*/
+        Route::get('/delete/{id}', 'ProjectsController@delete');
+        Route::post('/create', 'ProjectsController@create');
+        Route::get('/edit/{id}', 'ProjectsController@edit');
+        Route::put('/edit/{id}', 'ProjectsController@update');
+        Route::delete('/delete/{id}', 'ProjectsController@delete');
+
     });
 });
 

@@ -12,14 +12,17 @@ if(!is_login){
 }else{
      window.location.href=base_url+'#mian/dashboard';
 }
-var myApp = angular.module("myApp", ["ui.router"])
+var myApp = angular.module("myApp", [
+    "ui.router",
+    "myApp.Controllers"
+    ])
 .run(
     //获得当前状态的方法，绑到根作用域 http://www.tuicool.com/articles/zeiy6ff
     //$rootScope 根，$state 不是什么，$stateParams区分url参数，
          [          '$rootScope', '$state', '$stateParams',
             function ($rootScope,   $state,   $stateParams) {
                 //$rootScope.$state = $state;
-               // $rootScope.$stateParams = $stateParams;
+                $rootScope.$stateParams = $stateParams;
             }
           ]
     )
@@ -36,23 +39,10 @@ var myApp = angular.module("myApp", ["ui.router"])
         .state("auth.signin", {
             url:"/signin",
             templateUrl: template_admin_base_url+"auth/signin.html",
-            controller: function($scope, $http, $state) {
-                $scope.login = function() {
-                 $http.post( '/auth/login', {email: $scope.user.email, password: $scope.user.password})
-                  .then(function(response) {
-                    console.log(response);
-                    if ( !response.data.status ) {
-                      $scope.message = response.data.message;
-                    }else{
-                        $scope.success = '登陆成功';
-                        $state.go('main.dashboard');
-                    }
-                  }, function(x) {
-                    $scope.message = '用户名或密码不正确！';
-                  });
-             }
-            }
+             controller: 'SigninController',              
+            
         })
+        
         .state('main', {
                 url: '/mian',
                 templateUrl: template_admin_base_url+'main.html'
@@ -61,6 +51,7 @@ var myApp = angular.module("myApp", ["ui.router"])
                 url: '/dashboard',
                 templateUrl: template_admin_base_url+'dashboard.html'
             })
+        /********************接口********************/
         .state("main.posts", {
             url:"/posts",
             templateUrl: template_admin_base_url+'posts/index.html'
@@ -68,98 +59,65 @@ var myApp = angular.module("myApp", ["ui.router"])
         .state("main.posts.list", {
             url:"/list",
             templateUrl: template_admin_base_url+'posts/list.html',
-            controller: function($scope, $http, $state) {
-                $scope.currentPage = 1;
-
-                $scope.load=function(){
-                    $http.get( '/admin/posts/list/'+$scope.currentPage)
-                        .then(function(response) {
-                       
-                        $scope.list=response.data.data; 
-                        $scope.count = response.data.count; 
-                        $scope.pageSize=response.data.pageSize; 
-                        $scope.totalPage = Math.ceil($scope.count / $scope.pageSize);   
-                        // console.log($scope.totalPage );
-                        //生成数字链接
-                        //$scope.pageLength=$scope.totalPage>5?5:$scope.totalPage;
-
-
-                        if ($scope.currentPage > 1 && $scope.currentPage < $scope.totalPage) {
-                            
-                            $scope.pages = [
-                                $scope.currentPage - 1,
-                                $scope.currentPage,
-                                $scope.currentPage + 1
-                            ];
-                        } else if ($scope.currentPage == 1 && $scope.totalPage > 1) {
-                            $scope.pages = [
-                                $scope.currentPage,
-                                $scope.currentPage + 1
-                            ];
-                        } else if ($scope.currentPage == $scope.totalPage && $scope.totalPage > 1) {
-                            $scope.pages = [
-                                $scope.currentPage - 1,
-                                $scope.currentPage
-                            ];
-                        }
-
-
-
-                    });
-                }
-                $scope.load();
-                $scope.next = function () {                    
-                    if ($scope.currentPage < $scope.totalPage) {
-                        $scope.currentPage++;
-                        $scope.load();
-                    }
-                };
-
-                $scope.prev = function () {
-                    if ($scope.currentPage > 1) {$scope.currentPage--;$scope.load();}
-                };
-
-                $scope.loadPage = function (page) {
-                    $scope.currentPage = page;$scope.load();
-                };
-                
-                $scope.deleted =function(id){
-                    if(!confirm("确定删除？")){
-                        return false;
-                    }
-
-                }
-                
-            }
+            controller: 'PostsListController',
+            
         })
         .state("main.posts.add", {
             url:"/add",
             templateUrl: template_admin_base_url+'posts/add.html',
-        });
+            controller: 'PostsAddController',
+            
+        })
+        .state("main.posts.edit", {
+            url:"/edit/{id:[0-9]+}",
+            templateUrl: template_admin_base_url+'posts/edit.html',
+            controller: 'PostsEditController',
+            
+        })
+        /********************网站********************/
+        .state("main.websites", {
+            url:"/websites",
+            templateUrl: template_admin_base_url+'websites/index.html'
+        })
+        .state("main.websites.list", {
+            url:"/list",
+            templateUrl: template_admin_base_url+'websites/list.html',
+            controller: 'WebsitesListController',
+            
+        })
+        .state("main.websites.add", {
+            url:"/add",
+            templateUrl: template_admin_base_url+'websites/add.html',
+            controller: 'WebsitesAddController',
+            
+        })
+        .state("main.websites.edit", {
+            url:"/edit/{id:[0-9]+}",
+            templateUrl: template_admin_base_url+'websites/edit.html',
+            controller: 'WebsitesEditController',
+            
+        })
+        /********************网站********************/
+        .state("main.projects", {
+            url:"/projects",
+            templateUrl: template_admin_base_url+'projects/index.html'
+        })
+        .state("main.projects.list", {
+            url:"/list",
+            templateUrl: template_admin_base_url+'projects/list.html',
+            controller: 'ProjectsListController',
+            
+        })
+        .state("main.projects.add", {
+            url:"/add",
+            templateUrl: template_admin_base_url+'projects/add.html',
+            controller: 'ProjectsAddController',
+            
+        })
+        .state("main.projects.edit", {
+            url:"/edit/{id:[0-9]+}",
+            templateUrl: template_admin_base_url+'projects/edit.html',
+            controller: 'ProjectsEditController',
+            
+        })
 });
-
-
-/*
-var app = angular.module('myApp',[
-    'ui.router'
-    ])
-.run(
-    //获得当前状态的方法，绑到根作用域 http://www.tuicool.com/articles/zeiy6ff
-    //$rootScope 根，$state 不是什么，$stateParams区分url参数，
-         [          '$rootScope', '$state', '$stateParams',
-            function ($rootScope,   $state,   $stateParams) {
-                $rootScope.$state = $state;
-                $rootScope.$stateParams = $stateParams;
-            }
-          ]
-    )
-.config(
-    //路由重定向
-    [          '$stateProvider', '$urlRouterProvider','$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
-    function ($stateProvider,   $urlRouterProvider) {
-        $urlRouterProvider
-            .otherwise(default_tpl);
-
-
-    }]
-);*/

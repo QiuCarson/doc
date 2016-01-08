@@ -6,23 +6,18 @@
                 <tr>
                   <th>#id</th>
                   <th width="200">标题</th>
-                  <th >备注</th>
-                  <th width="150">项目</th>
-                  <th width="150">功能</th>
-                  <th width="200">操作</th>
+                  
+                  <th >操作</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="row in list">
-                  <td>{{row.posts_id}}</td>
-                  <td>{{row.posts_title}}</td>
-                  <td>{{row.posts_description}}</td>
+                  <td>{{row.websites_id}}</td>
+                  <td>{{row.websites_name}}</td>
                   
-                  <td>{{row.posts_category1}}</td>
-                  <td>{{row.posts_category2}}</td>
                   <td>
-                  <a type="button" class="btn btn-success" ui-sref="main.posts.edit({id:row.posts_id})" >编辑</a>
-                  <button type="button" class="btn btn-danger" ng-click="deleted({id:row.posts_id})" >删除</button>
+                  <a type="button" class="btn btn-success" ui-sref="main.websites.edit({id:row.websites_id})" >编辑</a>
+                  <button type="button" class="btn btn-danger" ng-click="deleted({id:row.websites_id})" >删除</button>
                   </td>
                 </tr>                
               </tbody>

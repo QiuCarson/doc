@@ -12,6 +12,7 @@ use Auth;
 class HomeController extends Controller
 {
      protected $redirectAfterLogout = '/admin';
+
     /**
      * Display a listing of the resource.
      *
@@ -37,6 +38,11 @@ class HomeController extends Controller
                     ->withErrors([
                         'email' => 'These credentials do not match our records.',
                     ]);*/
+    }
+
+    public function getLogout(){
+        Auth::logout();
+        return redirect('/admin');
     }
 
     
