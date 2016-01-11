@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Post;
+use App\Models\Website;
+use App\Models\Project;
 
 class PostController extends Controller
 {
@@ -29,7 +31,8 @@ class PostController extends Controller
 
         $posts['count'] =Post::count();
         $posts['pageSize']=$page;
-        $posts['pageSize']=$page;
+        
+        
 
         return response()->json($posts);
     }
@@ -118,5 +121,11 @@ class PostController extends Controller
         }else{
             return response()->json(['status'=>false,'message'=>'数据删除失败']);
         }
+    }
+    public function addshow(){
+        //网站列表
+        $data['websites']=Website::orderby('websites_id','desc')->get();
+        $data['projects']=Project::orderby('projects_id','desc')->get();
+        return response()->json(['status'=>true,'message'=>'数据查询成功','data'=>$data]);
     }
 }

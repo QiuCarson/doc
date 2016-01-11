@@ -14,7 +14,9 @@ if(!is_login){
 }
 var myApp = angular.module("myApp", [
     "ui.router",
-    "myApp.Controllers"
+    "myApp.Controllers",
+    "ngMessages",
+    "angularTrix"
     ])
 .run(
     //获得当前状态的方法，绑到根作用域 http://www.tuicool.com/articles/zeiy6ff
@@ -67,7 +69,7 @@ var myApp = angular.module("myApp", [
             templateUrl: template_admin_base_url+'posts/add.html',
             controller: 'PostsAddController',
             
-        })
+        })        
         .state("main.posts.edit", {
             url:"/edit/{id:[0-9]+}",
             templateUrl: template_admin_base_url+'posts/edit.html',

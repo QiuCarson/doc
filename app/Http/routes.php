@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
         Route::get('/edit/{id}', 'PostController@edit');
         Route::put('/edit/{id}', 'PostController@update');
         Route::delete('/delete/{id}', 'PostController@delete');
+        Route::get('/addshow', 'PostController@addshow');
 
     });
 
@@ -47,7 +48,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
         Route::post('/create', 'WebsiteController@create');
         Route::get('/edit/{id}', 'WebsiteController@edit');
         Route::put('/edit/{id}', 'WebsiteController@update');
-        Route::delete('/delete/{id}', 'WebsiteController@delete');
+        Route::delete('/delete/{id}', 'WebsiteController@delete');       
 
     });
 

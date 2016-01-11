@@ -91,7 +91,7 @@ angular.module("myApp.Controllers", ["ui.router"])
                 $scope.create = function(){
                     $http.post( '/admin/posts/create', {
                         posts_title: $scope.posts.posts_title, 
-                        website: $scope.posts.website,
+                        website: $scope.posts.websites,
                         project: $scope.posts.project, 
                         posts_description: $scope.posts.posts_description, 
                         posts_content: $scope.posts.posts_content, 
@@ -107,6 +107,23 @@ angular.module("myApp.Controllers", ["ui.router"])
                             $scope.message = '数据插入失败';
                         })
                 }
+                $scope.load = function(){
+                    $http.get( '/admin/posts/addshow', {
+
+                    }).then(function(response) {
+                        if ( response.data.status ) {
+                                //$scope.show.websites= response.data.data.websites;
+                                //console.log($scope.show.websites);
+                                $scope.list=response.data.data;
+                                console.log($scope.list.websites);
+                                //$scope.posts.prodjects = response.data.data.prodjects;
+
+                        }
+                        //console.log(response);
+
+                    })
+                }
+                $scope.load();
             
  }]) 
 .controller('PostsEditController',['$scope','$http','$state',function($scope, $http, $state){

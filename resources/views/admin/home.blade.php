@@ -24,13 +24,20 @@
 
     <script src="/models/angularjs/angular.min.js"></script>
     <script src="/models/angularjs/angular-ui-router.min.js"></script>
+    <script src="/models/angularjs/angular-messages.js"></script>
     <script src="/models/angularjs/tm.pagination.js"></script>
     
   <script src="/models/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
   
   <!--编辑器-->
-<link rel="stylesheet" type="text/css" href="/models/wangEditor/css/wangEditor-1.3.13.2.css">
-<script type="text/javascript" src='/models/wangEditor/js/wangEditor-1.3.13.2.min.js'></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
+<script src="/models/angular-trix-master/dist/angular-trix.min.js"></script>
+
+
+
    <script>
     $.ajaxSetup({
         headers: {
