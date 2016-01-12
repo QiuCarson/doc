@@ -18,8 +18,8 @@
                   <td>{{row.posts_title}}</td>
                   <td>{{row.posts_description}}</td>
                   
-                  <td>{{row.website}}</td>
-                  <td>{{row.project}}</td>
+                  <td>{{row.websites_name}}</td>
+                  <td>{{row.projects_name}}</td>
                   <td>
                   <a type="button" class="btn btn-success" ui-sref="main.posts.edit({id:row.posts_id})" >编辑</a>
                   <button type="button" class="btn btn-danger" ng-click="deleted({id:row.posts_id})" >删除</button>
@@ -27,7 +27,7 @@
                 </tr>                
               </tbody>
             </table>
-<ul class="pagination" >
+<ul class="pagination" style="margin-top:-15px;float:right" >
   <li><a href="javascript:void(0);" ng-click="prev()">&laquo;</a></li>
   <li ng-repeat="page in pages">
       <a href="javascript:void(0);" ng-click="loadPage(page)" >{{ page }}</a>

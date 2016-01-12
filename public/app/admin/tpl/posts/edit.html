@@ -1,12 +1,27 @@
 <h2 class="sub-header">修改接口</h2>
     <div class="row">
+    <form class="form-horizontal" role="form" name="myForm">
         <div class="col-md-10">
             <div class="form-group">
                 <label for="title" class="col-md-2 control-label">
                     标题
                 </label>
                 <div class="col-md-10">
-                    <input type="text" class="form-control" name="title" autofocus id="title"  ng-model="posts.posts_title">
+                    <input type="text" class="form-control" name="title" autofocus id="title"  ng-model="posts.posts_title" required>
+                    <div class="help-block" ng-messages="myForm.posts_title.$error" ng-if="myForm.posts_title.$touched">
+                        <p ng-message="required">标题必须填</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="subtitle" class="col-md-2 control-label">
+                    网站
+                </label>
+                <div class="col-md-10">
+                    
+                    <select ng-model="posts.website" ng-options="c.websites_id as c.websites_name   for c in posts.websites" class="form-control" ng-selected="c.websites_id==posts.website">
+                        <option value="">请选择网站</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -14,15 +29,11 @@
                     项目
                 </label>
                 <div class="col-md-10">
-                    <input type="text" class="form-control" name="subtitle" id="subtitle" ng-model="posts.posts_category1">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="subtitle" class="col-md-2 control-label">
-                    功能
-                </label>
-                <div class="col-md-10">
-                    <input type="text" class="form-control" name="subtitle" id="subtitle" ng-model="posts.posts_category2">
+                    
+                    <select ng-model="posts.project" ng-options="p.projects_id as p.projects_name   for p in posts.projects" class="form-control" ng-selected="p.projects_id==posts.project">
+                        <option value="">请选择项目</option>
+                    </select>
+
                 </div>
             </div>
             <div class="form-group">
@@ -38,12 +49,7 @@
                     内容
                 </label>
                 <div class="col-md-10">
-                    <textarea id='textarea1' style='height:400px; width:100%;' ng-model="posts.posts_content"></textarea>
-<script type="text/javascript">
-    $(function(){
-        //var editor = $('#textarea1').wangEditor();
-    });
-</script>
+                    <trix-editor angular-trix ng-model="posts.posts_content" style="min-height:300px"></trix-editor>
                 </div>
             </div>
             {{message}}
@@ -54,5 +60,5 @@
                 <button type="button" class="btn btn-success" ng-click="edit()">保存</button>
                 </div>
             </div>
-        </div>
+        </div><form>
     </div>

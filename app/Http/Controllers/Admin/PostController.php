@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Website;
 use App\Models\Project;
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 
 class PostController extends Controller
 {
@@ -26,12 +28,13 @@ class PostController extends Controller
 
         $page=10;
         //echo $current_page*$page;exit;
-        $post = Post::orderby('posts_id','desc')->offset($current_page*$page)->limit($page);
+        $post = Post::leftJoin('websites', 'posts.website', '=', 'websites.websites_id')
+            ->leftJoin('projects', 'posts.project', '=', 'projects.projects_id')
+         ->orderby('posts_id','desc')->offset($current_page*$page)->limit($page);
         $posts['data']=$post->get();
 
         $posts['count'] =Post::count();
         $posts['pageSize']=$page;
-        
         
 
         return response()->json($posts);
@@ -42,12 +45,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(PostCreateRequest $request)
     {
         $data['posts_title'] = $request->input('posts_title');
         $data['posts_description'] = $request->input('posts_description');
-        $data['posts_category1'] = $request->input('posts_category1');
-        $data['posts_category2'] = $request->input('posts_category2');
+        $data['website'] = $request->input('website');
+        $data['project'] = $request->input('project');
         $data['posts_content'] = $request->input('posts_content');
 
         $id=Post::insertGetId($data);
@@ -74,6 +77,8 @@ class PostController extends Controller
         }else{
             $data['status']=false;
         }
+        $data['data']['websites']=Website::orderby('websites_id','desc')->get();
+        $data['data']['projects']=Project::orderby('projects_id','desc')->get();
         return response()->json($data);
     }
 
@@ -84,14 +89,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostUpdateRequest $request, $id)
     {
         $data=Post::where('posts_id',$id)->first();
         if($data){
             $posts['posts_title']=$request->input('posts_title');
             $posts['posts_description']=$request->input('posts_description');
-            $posts['posts_category1']=$request->input('posts_category1');
-            $posts['posts_category2']=$request->input('posts_category2');
+            $posts['website']=$request->input('website');
+            $posts['website']=$request->input('website');
             $posts['posts_content']=$request->input('posts_content');
 
             $flag=Post::where('posts_id',$id)->update($posts);
@@ -112,12 +117,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function delete($id)
-    {
-        
-        
+    {        
         $flag=Post::where('posts_id',$id)->delete();
         if($flag){
-                return response()->json(['status'=>true,'message'=>'数据删除成功']);
+            return response()->json(['status'=>true,'message'=>'数据删除成功']);
         }else{
             return response()->json(['status'=>false,'message'=>'数据删除失败']);
         }

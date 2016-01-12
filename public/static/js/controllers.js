@@ -91,7 +91,7 @@ angular.module("myApp.Controllers", ["ui.router"])
                 $scope.create = function(){
                     $http.post( '/admin/posts/create', {
                         posts_title: $scope.posts.posts_title, 
-                        website: $scope.posts.websites,
+                        website: $scope.posts.website,
                         project: $scope.posts.project, 
                         posts_description: $scope.posts.posts_description, 
                         posts_content: $scope.posts.posts_content, 
@@ -156,7 +156,11 @@ angular.module("myApp.Controllers", ["ui.router"])
                         console.log(response );
                         if(response.data.status){
                            // console.log(response.data.data.posts_content);
-                            $scope.posts=response.data.data;                            
+                            $scope.posts=response.data.data;
+                           $scope.posts.initproject=$scope.posts.project;
+                            //$scope.websites=response.data.data.websites;  
+                           // $scope.projects=response.data.data.projects;  
+                                                    
                         }                        
                     })
                 }
