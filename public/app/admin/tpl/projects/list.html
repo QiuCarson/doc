@@ -22,11 +22,5 @@
                 </tr>                
               </tbody>
             </table>
-<ul class="pagination" >
-  <li><a href="javascript:void(0);" ng-click="prev()">&laquo;</a></li>
-  <li ng-repeat="page in pages">
-      <a href="javascript:void(0);" ng-click="loadPage(page)" >{{ page }}</a>
-  </li>
-  <li><a href="javascript:void(0);" ng-click="next()">&raquo;</a></li>
-</ul>
+<uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" num-pages="numPages" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-change="pageChanged()" style="margin-top:-15px;float:right"></uib-pagination>
           </div>

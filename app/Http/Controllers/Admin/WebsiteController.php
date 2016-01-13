@@ -42,7 +42,10 @@ class WebsiteController extends Controller
     public function create(Request $request)
     {
         $data['websites_name'] = $request->input('websites_name');
-
+        if($this->check_repeat($data['websites_name'])){
+                return response()->json(['status'=>false,'message'=>'网站已经存在']);
+                exit;
+        }
         $id=Website::insertGetId($data);
         if($id){
             return response()->json(['status'=>true,'message'=>'数据插入成功','data'=>$data]);
@@ -82,7 +85,10 @@ class WebsiteController extends Controller
         $data=Website::where('websites_id',$id)->first();
         if($data){
             $posts['websites_name']=$request->input('websites_name');
-            
+            if($this->check_repeat($posts['websites_name'])){
+                return response()->json(['status'=>false,'message'=>'网站已经存在']);
+                exit;
+            }
 
             $flag=Website::where('websites_id',$id)->update($posts);
             if($flag){
@@ -102,14 +108,21 @@ class WebsiteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function delete($id)
-    {
-        
+    {       
         
         $flag=Website::where('websites_id',$id)->delete();
         if($flag){
                 return response()->json(['status'=>true,'message'=>'数据删除成功']);
         }else{
             return response()->json(['status'=>false,'message'=>'数据删除失败']);
+        }
+    }
+
+    private function check_repeat($websites_name){
+        $websites=Website::where('websites_name',$websites_name)->count();
+
+        if($websites){
+            return true;            
         }
     }
 }

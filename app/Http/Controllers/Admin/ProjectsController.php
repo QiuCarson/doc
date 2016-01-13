@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Project;
+use App\Http\Requests\ProjectsRequest;
 
 class ProjectsController extends Controller
 {
@@ -39,9 +40,13 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(ProjectsRequest $request)
     {
         $data['projects_name'] = $request->input('projects_name');
+        if($this->check_repeat($data['projects_name'] )){
+            return response()->json(['status'=>false,'message'=>'项目已经存在']);
+            exit;
+        }
 
         $id=Project::insertGetId($data);
         if($id){
@@ -77,12 +82,16 @@ class ProjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProjectsRequest $request, $id)
     {
         $data=Project::where('projects_id',$id)->first();
         if($data){
             $posts['projects_name']=$request->input('projects_name');
-            
+
+            if($this->check_repeat($posts['projects_name'] )){
+                return response()->json(['status'=>false,'message'=>'项目已经存在']);
+                exit;
+            }
 
             $flag=Project::where('projects_id',$id)->update($posts);
             if($flag){
@@ -110,6 +119,14 @@ class ProjectsController extends Controller
                 return response()->json(['status'=>true,'message'=>'数据删除成功']);
         }else{
             return response()->json(['status'=>false,'message'=>'数据删除失败']);
+        }
+    }
+
+    private function check_repeat($projects_name){
+        $project=Project::where('projects_name',$projects_name)->count();
+
+        if($project){
+            return true;            
         }
     }
 }

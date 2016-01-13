@@ -16,7 +16,7 @@ var myApp = angular.module("myApp", [
     "ui.router",
     "myApp.Controllers",
     "ngMessages",
-    "angularTrix"
+    "angularTrix",
     ])
 .run(
     //获得当前状态的方法，绑到根作用域 http://www.tuicool.com/articles/zeiy6ff
@@ -25,6 +25,7 @@ var myApp = angular.module("myApp", [
             function ($rootScope,   $state,   $stateParams) {
                 //$rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
+                
             }
           ]
     )

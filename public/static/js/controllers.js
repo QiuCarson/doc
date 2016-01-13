@@ -1,5 +1,11 @@
 
-angular.module("myApp.Controllers", ["ui.router"])
+angular.module("myApp.Controllers", [
+    "ui.router",
+    "ui.bootstrap",
+    ])
+.controller('mainleft', function ($scope) {
+
+})
 .controller('SigninController',['$scope','$http','$state',function($scope, $http, $state){
 
               $scope.login = function() {
@@ -7,69 +13,52 @@ angular.module("myApp.Controllers", ["ui.router"])
                   .then(function(response) {
                     //console.log(response);
                     if ( !response.data.status ) {
-                      $scope.message = response.data.message;
+                        $scope.alert = {type: 'danger', msg: response.data.message };
+                        $scope.isCollapsed = false;
+                      //$scope.message = response.data.message;
                     }else{
                         $scope.success = '登陆成功';
                         $state.go('main.dashboard');
                     }
                   }, function(x) {
-                    $scope.message = '用户名或密码不正确！';
+                    //$scope.message = '用户名或密码不正确！';
+                    $scope.alert = {type: 'danger', msg: '用户名或密码不正确' };
+                    $scope.isCollapsed = false;
                   });
              }
+
+            $scope.closeAlert = function() {
+                $scope.isCollapsed = true;
+            };
+            $scope.isCollapsed = true;
            
 }])
 
 /********************接口********************/
 .controller('PostsListController',['$scope','$http','$state',function($scope, $http, $state){
                 $scope.currentPage = 1;
+                
+                $scope.maxSize=5;
                 $scope.load=function(){
                     $http.get( '/admin/posts/list/'+$scope.currentPage)
                         .then(function(response) {
                        
                         $scope.list=response.data.data; 
-                        $scope.count = response.data.count; 
-                        $scope.pageSize=response.data.pageSize; 
-                        $scope.totalPage = Math.ceil($scope.count / $scope.pageSize);   
-                        // console.log($scope.totalPage );
-                        //生成数字链接
-                        //$scope.pageLength=$scope.totalPage>5?5:$scope.totalPage;
+                       // $scope.count = response.data.count; 
+                       // $scope.pageSize=response.data.pageSize; 
+                       // $scope.totalPage = Math.ceil($scope.count / $scope.pageSize);   
 
-                        if ($scope.currentPage > 1 && $scope.currentPage < $scope.totalPage) {
-                            
-                            $scope.pages = [
-                                $scope.currentPage - 1,
-                                $scope.currentPage,
-                                $scope.currentPage + 1
-                            ];
-                        } else if ($scope.currentPage == 1 && $scope.totalPage > 1) {
-                            $scope.pages = [
-                                $scope.currentPage,
-                                $scope.currentPage + 1
-                            ];
-                        } else if ($scope.currentPage == $scope.totalPage && $scope.totalPage > 1) {
-                            $scope.pages = [
-                                $scope.currentPage - 1,
-                                $scope.currentPage
-                            ];
-                        }
+                        $scope.totalItems=response.data.count;
+                        $scope.itemsPerPage=response.data.pageSize;
+                        $scope.numPages=Math.ceil($scope.count / $scope.pageSize);
+                        
                     });
                 }
                 $scope.load();
-                $scope.next = function () {                    
-                    if ($scope.currentPage < $scope.totalPage) {
-                        $scope.currentPage++;
-                        $scope.load();
-                    }
-                };
-
-                $scope.prev = function () {
-                    if ($scope.currentPage > 1) {$scope.currentPage--;$scope.load();}
-                };
-
-                $scope.loadPage = function (page) {
-                    $scope.currentPage = page;$scope.load();
-                };
                 
+               $scope.pageChanged = function() {
+                    $scope.load();
+                };
                 $scope.deleted =function(id){
                     if(!confirm("确定删除？")){
                         return false;
@@ -83,7 +72,8 @@ angular.module("myApp.Controllers", ["ui.router"])
 
                         });
                     }
-                };                
+                }; 
+
             
 }])
 .controller('PostsAddController',['$scope','$http','$state',function($scope, $http, $state){
@@ -98,13 +88,20 @@ angular.module("myApp.Controllers", ["ui.router"])
                     })
                   .then(function(response) {
                             if ( !response.data.status ) {
-                                $scope.message = response.data.message;
+                                $scope.alert = {type: 'danger', msg: response.data.message };
+                                $scope.isCollapsed = false;
+                                //$scope.message = response.data.message;
                             }else{
-                                $scope.success = '数据插入成功';
+                               // $scope.success = '数据插入成功';
+                                $scope.alert = {type: 'success', msg: '数据插入成功' };
+                                $scope.isCollapsed = false;
                                 $state.go('main.posts.list');
                             }
                         }, function(x) {
-                            $scope.message = '数据插入失败';
+                            $scope.alert = {type: 'danger', msg: '数据插入失败' };
+                            $scope.isCollapsed = false;
+                            //$scope.alert.type="danger";
+                           // $scope.alert.msg = '数据插入失败';
                         })
                 }
                 $scope.load = function(){
@@ -115,7 +112,7 @@ angular.module("myApp.Controllers", ["ui.router"])
                                 //$scope.show.websites= response.data.data.websites;
                                 //console.log($scope.show.websites);
                                 $scope.list=response.data.data;
-                                console.log($scope.list.websites);
+                               // console.log($scope.list.websites);
                                 //$scope.posts.prodjects = response.data.data.prodjects;
 
                         }
@@ -123,6 +120,10 @@ angular.module("myApp.Controllers", ["ui.router"])
 
                     })
                 }
+                $scope.closeAlert = function() {
+                    $scope.isCollapsed = true;
+                };
+                $scope.isCollapsed = true;
                 $scope.load();
             
  }]) 
@@ -139,13 +140,19 @@ angular.module("myApp.Controllers", ["ui.router"])
                     })
                   .then(function(response) {
                             if ( !response.data.status ) {
-                                $scope.message = response.data.message;
+                              //  $scope.message = response.data.message;
+                                $scope.alert = {type: 'danger', msg:  response.data.message };
+                                $scope.isCollapsed = false;
                             }else{
-                                $scope.success = '数据插入成功';
+                                //$scope.success = '数据更新成功';
+                                $scope.alert = {type: 'success', msg: '数据更新成功' };
+                                $scope.isCollapsed = false;
                                 $state.go('main.posts.list');
                             }
                         }, function(x) {
-                            $scope.message = '数据插入失败';
+                            //$scope.message = '数据插入失败';
+                            $scope.alert = {type: 'danger', msg: '数据更新失败' };
+                            $scope.isCollapsed = false;
                         })
                 }
                 
@@ -164,57 +171,31 @@ angular.module("myApp.Controllers", ["ui.router"])
                         }                        
                     })
                 }
+                $scope.closeAlert = function() {
+                    $scope.isCollapsed = true;
+                };
+                $scope.isCollapsed = true;
                 $scope.getone(); 
  }]) 
 /********************网站********************/
 .controller('WebsitesListController',['$scope','$http','$state',function($scope, $http, $state){
                 $scope.currentPage = 1;
+                $scope.maxSize=5;
                 $scope.load=function(){
                     $http.get( '/admin/websites/list/'+$scope.currentPage)
                         .then(function(response) {
                        
-                        $scope.list=response.data.data; 
-                        $scope.count = response.data.count; 
-                        $scope.pageSize=response.data.pageSize; 
-                        $scope.totalPage = Math.ceil($scope.count / $scope.pageSize);   
-                        // console.log($scope.totalPage );
-                        //生成数字链接
-                        //$scope.pageLength=$scope.totalPage>5?5:$scope.totalPage;
-
-                        if ($scope.currentPage > 1 && $scope.currentPage < $scope.totalPage) {
-                            
-                            $scope.pages = [
-                                $scope.currentPage - 1,
-                                $scope.currentPage,
-                                $scope.currentPage + 1
-                            ];
-                        } else if ($scope.currentPage == 1 && $scope.totalPage > 1) {
-                            $scope.pages = [
-                                $scope.currentPage,
-                                $scope.currentPage + 1
-                            ];
-                        } else if ($scope.currentPage == $scope.totalPage && $scope.totalPage > 1) {
-                            $scope.pages = [
-                                $scope.currentPage - 1,
-                                $scope.currentPage
-                            ];
-                        }
+                        $scope.list=response.data.data;
+                        $scope.totalItems=response.data.count;
+                        $scope.itemsPerPage=response.data.pageSize;
+                        $scope.numPages=Math.ceil($scope.count / $scope.pageSize);   
+                        
                     });
                 }
                 $scope.load();
-                $scope.next = function () {                    
-                    if ($scope.currentPage < $scope.totalPage) {
-                        $scope.currentPage++;
-                        $scope.load();
-                    }
-                };
-
-                $scope.prev = function () {
-                    if ($scope.currentPage > 1) {$scope.currentPage--;$scope.load();}
-                };
-
-                $scope.loadPage = function (page) {
-                    $scope.currentPage = page;$scope.load();
+               
+               $scope.pageChanged = function() {
+                    $scope.load();
                 };
                 
                 $scope.deleted =function(id){
@@ -242,15 +223,25 @@ angular.module("myApp.Controllers", ["ui.router"])
                     })
                   .then(function(response) {
                             if ( !response.data.status ) {
-                                $scope.message = response.data.message;
+                                //$scope.message = response.data.message;
+                                $scope.alert = {type: 'danger', msg: response.data.message };
+                                $scope.isCollapsed = false;
                             }else{
-                                $scope.success = '数据插入成功';
+                                //$scope.success = '数据插入成功';
+                                $scope.alert = {type: 'success', msg: '数据插入成功' };
+                                $scope.isCollapsed = false;
                                 $state.go('main.websites.list');
                             }
                         }, function(x) {
-                            $scope.message = '数据插入失败';
+                            //$scope.message = '数据插入失败';
+                            $scope.alert = {type: 'danger', msg: '数据插入失败' };
+                            $scope.isCollapsed = false;
                         })
                 }
+                $scope.closeAlert = function() {
+                    $scope.isCollapsed = true;
+                };
+                $scope.isCollapsed = true;
             
  }]) 
 .controller('WebsitesEditController',['$scope','$http','$state',function($scope, $http, $state){
@@ -263,13 +254,19 @@ angular.module("myApp.Controllers", ["ui.router"])
                     })
                   .then(function(response) {
                             if ( !response.data.status ) {
-                                $scope.message = response.data.message;
+                                //$scope.message = response.data.message;
+                                $scope.alert = {type: 'danger', msg: response.data.message };
+                                $scope.isCollapsed = false;
                             }else{
-                                $scope.success = '数据插入成功';
+                                //$scope.success = '数据插入成功';
+                                $scope.alert = {type: 'success', msg: '数据修改成功' };
+                                $scope.isCollapsed = false;
                                 $state.go('main.websites.list');
                             }
                         }, function(x) {
-                            $scope.message = '数据插入失败';
+                            //$scope.message = '数据插入失败';
+                            $scope.alert = {type: 'danger', msg: '数据更新失败' };
+                            $scope.isCollapsed = false;
                         })
                 }
                 
@@ -284,57 +281,30 @@ angular.module("myApp.Controllers", ["ui.router"])
                         }                        
                     })
                 }
+                $scope.closeAlert = function() {
+                    $scope.isCollapsed = true;
+                };
+                $scope.isCollapsed = true;
                 $scope.getone(); 
  }]) 
 /********************项目********************/
 .controller('ProjectsListController',['$scope','$http','$state',function($scope, $http, $state){
                 $scope.currentPage = 1;
+                $scope.maxSize=5;
                 $scope.load=function(){
                     $http.get( '/admin/projects/list/'+$scope.currentPage)
                         .then(function(response) {
                        
                         $scope.list=response.data.data; 
-                        $scope.count = response.data.count; 
-                        $scope.pageSize=response.data.pageSize; 
-                        $scope.totalPage = Math.ceil($scope.count / $scope.pageSize);   
-                        // console.log($scope.totalPage );
-                        //生成数字链接
-                        //$scope.pageLength=$scope.totalPage>5?5:$scope.totalPage;
-
-                        if ($scope.currentPage > 1 && $scope.currentPage < $scope.totalPage) {
-                            
-                            $scope.pages = [
-                                $scope.currentPage - 1,
-                                $scope.currentPage,
-                                $scope.currentPage + 1
-                            ];
-                        } else if ($scope.currentPage == 1 && $scope.totalPage > 1) {
-                            $scope.pages = [
-                                $scope.currentPage,
-                                $scope.currentPage + 1
-                            ];
-                        } else if ($scope.currentPage == $scope.totalPage && $scope.totalPage > 1) {
-                            $scope.pages = [
-                                $scope.currentPage - 1,
-                                $scope.currentPage
-                            ];
-                        }
+                        $scope.totalItems=response.data.count;
+                        $scope.itemsPerPage=response.data.pageSize;
+                        $scope.numPages=Math.ceil($scope.count / $scope.pageSize); 
+                        
                     });
                 }
                 $scope.load();
-                $scope.next = function () {                    
-                    if ($scope.currentPage < $scope.totalPage) {
-                        $scope.currentPage++;
-                        $scope.load();
-                    }
-                };
-
-                $scope.prev = function () {
-                    if ($scope.currentPage > 1) {$scope.currentPage--;$scope.load();}
-                };
-
-                $scope.loadPage = function (page) {
-                    $scope.currentPage = page;$scope.load();
+                $scope.pageChanged = function() {
+                    $scope.load();
                 };
                 
                 $scope.deleted =function(id){
@@ -362,15 +332,25 @@ angular.module("myApp.Controllers", ["ui.router"])
                     })
                   .then(function(response) {
                             if ( !response.data.status ) {
-                                $scope.message = response.data.message;
+                               // $scope.message = response.data.message;
+                                $scope.alert = {type: 'danger', msg: response.data.message };
+                                $scope.isCollapsed = false;
                             }else{
-                                $scope.success = '数据插入成功';
-                                $state.go('main.websites.list');
+                                //$scope.success = '数据插入成功';
+                                $scope.alert = {type: 'success', msg: '数据插入成功' };
+                                $scope.isCollapsed = false;
+                                $state.go('main.products.list');
                             }
                         }, function(x) {
-                            $scope.message = '数据插入失败';
+                            //$scope.message = '数据插入失败';
+                            $scope.alert = {type: 'danger', msg: '数据插入失败' };
+                            $scope.isCollapsed = false;
                         })
                 }
+                $scope.closeAlert = function() {
+                    $scope.isCollapsed = true;
+                };
+                $scope.isCollapsed = true;
             
  }]) 
 .controller('ProjectsEditController',['$scope','$http','$state',function($scope, $http, $state){
@@ -383,13 +363,18 @@ angular.module("myApp.Controllers", ["ui.router"])
                     })
                   .then(function(response) {
                             if ( !response.data.status ) {
-                                $scope.message = response.data.message;
+                               // $scope.message = response.data.message;
+                                $scope.alert = {type: 'danger', msg: response.data.message };
+                                $scope.isCollapsed = false;
                             }else{
-                                $scope.success = '数据插入成功';
-                                $state.go('main.websites.list');
+                                //$scope.success = '数据插入成功';
+                                $scope.alert = {type: 'success', msg: '数据插入成功' };
+                                $scope.isCollapsed = false;
+                                $state.go('main.products.list');
                             }
                         }, function(x) {
-                            $scope.message = '数据插入失败';
+                            $scope.alert = {type: 'danger', msg: '数据更新失败' };
+                            $scope.isCollapsed = false;
                         })
                 }
                 
@@ -404,5 +389,9 @@ angular.module("myApp.Controllers", ["ui.router"])
                         }                        
                     })
                 }
+                $scope.closeAlert = function() {
+                    $scope.isCollapsed = true;
+                };
+                $scope.isCollapsed = true;
                 $scope.getone(); 
  }]) 

@@ -1,3 +1,4 @@
+<uib-alert  type="{{alert.type}}" close="closeAlert()" dismiss-on-timeout="3000" uib-collapse="isCollapsed">{{alert.msg}}</uib-alert>
 <h2 class="sub-header">修改接口</h2>
     <div class="row">
     <form class="form-horizontal" role="form" name="myForm">
@@ -9,7 +10,7 @@
                 <div class="col-md-10">
                     <input type="text" class="form-control" name="title" autofocus id="title"  ng-model="posts.posts_title" required>
                     <div class="help-block" ng-messages="myForm.posts_title.$error" ng-if="myForm.posts_title.$touched">
-                        <p ng-message="required">标题必须填</p>
+                        <p ng-message="required" style="color:red">标题必须填</p>
                     </div>
                 </div>
             </div>

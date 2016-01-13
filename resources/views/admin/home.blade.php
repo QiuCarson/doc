@@ -26,14 +26,16 @@
     <script src="/models/angularjs/angular-ui-router.min.js"></script>
     <script src="/models/angularjs/angular-messages.js"></script>
     <script src="/models/angularjs/tm.pagination.js"></script>
+    <script src="/models/angularjs/ui-bootstrap-tpls-1.0.3.min.js"></script>
+
     
   <script src="/models/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
   
   <!--编辑器-->
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
+<link rel="stylesheet" type="text/css" href="/models/angular-trix-master/dist/trix.css">
 
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
+<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
+<script src="/models/angular-trix-master/dist/trix.js"></script>
 <script src="/models/angular-trix-master/dist/angular-trix.min.js"></script>
 
 
