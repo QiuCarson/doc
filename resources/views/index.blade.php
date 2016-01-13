@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>后台管理</title>
+    <title>小松API前台</title>
  
     <!-- Bootstrap -->
   <link rel="stylesheet" href="/models/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/app/front/css/simple-sidebar.css">
  
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,34 +25,14 @@
 
     <script src="/models/angularjs/angular.min.js"></script>
     <script src="/models/angularjs/angular-ui-router.min.js"></script>
-    <script src="/models/angularjs/angular-messages.js"></script>
-    <script src="/models/angularjs/tm.pagination.js"></script>
-    <script src="/models/angularjs/ui-bootstrap-tpls-1.0.3.min.js"></script>
 
+    <script src="/models/angularjs/ui-bootstrap-tpls-1.0.3.min.js"></script>
     
   <script src="/models/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-  
-  <!--编辑器-->
-<link rel="stylesheet" type="text/css" href="/models/angular-trix-master/dist/trix.css">
-
-<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
-<script src="/models/angular-trix-master/dist/trix.js"></script>
-<script src="/models/angular-trix-master/dist/angular-trix.min.js"></script>
-
-
-
-   <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    var base_url = '<?php echo route("admin") ?>';
-   var is_login = '<?php echo (new App\Models\User)->isAdminLogin() ?>';
-    </script>
-   <script src="/app/admin/js/app.js"></script>
+   
+   <script src="/app/front/js/app.js"></script>
 
  
-  <script src="/app/admin/js/controllers.js"></script>
+  <script src="/app/front/js/controllers.js"></script>
   </body>
 </html>
