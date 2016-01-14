@@ -64,6 +64,15 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
     });
 });
 
+/*****************前台路由**********************/
+ Route::group(['prefix' => 'front','namespace' => 'Front'], function () {
+    Route::get('/nav', 'PostController@nav');
+    Route::get('/alllist', 'PostController@alllist');
+    Route::get('/list/{wid}/{pid}', 'PostController@postslist');
+    Route::get('/posts/{id}', 'PostController@posts');
+ });
+
+
 /*
 Blade::setContentTags('<%', '%>'); // For variables and all things Blade.
 Blade::setEscapedContentTags('<%%', '%%>'); // For escaped data.

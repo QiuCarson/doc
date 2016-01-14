@@ -112,7 +112,8 @@ angular.module("myApp.Controllers", [
                                 //$scope.show.websites= response.data.data.websites;
                                 //console.log($scope.show.websites);
                                 $scope.list=response.data.data;
-                               // console.log($scope.list.websites);
+                                $scope.posts.posts_content=response.data.data.posts_content;
+                                console.log(response.data.data.posts_content);
                                 //$scope.posts.prodjects = response.data.data.prodjects;
 
                         }

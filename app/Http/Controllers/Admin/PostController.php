@@ -48,7 +48,7 @@ class PostController extends Controller
     public function create(PostCreateRequest $request)
     {
         $data['posts_title'] = $request->input('posts_title');
-        $data['posts_description'] = $request->input('posts_description');
+        $data['posts_description'] = addslashes($request->input('posts_description'));
         $data['website'] = $request->input('website');
         $data['project'] = $request->input('project');
         $data['posts_content'] = $request->input('posts_content');
@@ -77,6 +77,7 @@ class PostController extends Controller
         }else{
             $data['status']=false;
         }
+        $data['data']['posts_content']=stripslashes($data['data']['posts_content']);
         $data['data']['websites']=Website::orderby('websites_id','desc')->get();
         $data['data']['projects']=Project::orderby('projects_id','desc')->get();
         return response()->json($data);
@@ -129,6 +130,8 @@ class PostController extends Controller
         //网站列表
         $data['websites']=Website::orderby('websites_id','desc')->get();
         $data['projects']=Project::orderby('projects_id','desc')->get();
+        $data['posts_content']=file_get_contents("http://www.doc.com/app/admin/tpl/posts/default.html");
+
         return response()->json(['status'=>true,'message'=>'数据查询成功','data'=>$data]);
     }
 }

@@ -17,11 +17,26 @@ var myApp = angular.module("myApp", [
           ]
     )
 .config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.when("", "/");
+    $urlRouterProvider.when("", "/index");
      $stateProvider
         .state('index', {
-                url: '/',
+                url: '/index',
                 templateUrl: template_admin_base_url+"index.html",
                 controller: 'IndexController', 
+        })
+        .state('index.alllist', {
+                url: '/alllist',
+                templateUrl: template_admin_base_url+"alllist.html",
+                controller: 'AlllistController', 
+        })
+        .state('index.list', {
+                url: '/list/{wid:[0-9]+}/{pid:[0-9]+}',
+                templateUrl: template_admin_base_url+"list.html",
+                controller: 'ListController', 
+        })
+        .state('index.posts', {
+                url: '/posts/{id:[0-9]+}',
+                templateUrl: template_admin_base_url+"posts.html",
+                controller: 'PostsController', 
         })
 })
