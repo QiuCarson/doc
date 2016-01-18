@@ -69,7 +69,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
     Route::get('/nav', 'PostController@nav');
     Route::get('/alllist', 'PostController@alllist');
     Route::get('/list/{wid}/{pid}', 'PostController@postslist');
-    Route::get('/posts/{id}', 'PostController@posts');
+    Route::post('/posts', 'PostController@posts');
  });
 
 

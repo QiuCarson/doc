@@ -52,7 +52,12 @@ class PostController extends Controller
          return response()->json($posts);
     }
 
-    public function posts($id){
+    public function posts(Request $request){
+        $id= $request->input('id');
+        if($id<1){
+            return response()->json(['status'=>false,'message'=>'参数有错误']);            
+            exit;
+        }
         $posts=Post::leftJoin('websites', 'posts.website', '=', 'websites.websites_id')
             ->leftJoin('projects', 'posts.project', '=', 'projects.projects_id')->where('posts_id',$id)->first();
         return response()->json($posts);

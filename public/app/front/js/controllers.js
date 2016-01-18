@@ -46,12 +46,13 @@ angular.module("myApp.Controllers", [
                
 
 }])
-.controller('PostsController', ['$scope','$http','$state',function($scope, $http, $state){
+.controller('PostsController', ['$scope','$http','$state','$sce',function($scope, $http, $state,$sce){
           $scope.load=function(){
-                    $http.get( '/front/posts/'+$scope.$stateParams.id)
+                    $http.post( '/front/posts',{id:$scope.$stateParams.id})
                         .then(function(response) {
                        
                         $scope.posts=response.data; 
+                        $scope.posts_content=$sce.trustAsHtml(response.data.posts_content);
                        console.log(response.data);
                         
                     });

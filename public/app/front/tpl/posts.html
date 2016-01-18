@@ -4,5 +4,6 @@
 <p>{{posts.posts_title}}</p>
 <h6 class="page-header ng-scope"><strong>接口描述</strong></h6>
 <p>{{posts.posts_description}}</p>
-{{posts.posts_content}}
+
+<div ng-bind-html="posts_content">
 <button type="button" class="btn btn-success" ng-click="list()">接口列表</button>
