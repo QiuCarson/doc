@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" ng-app='myApp'>
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,7 @@
     <title>小松API前台</title>
  
     <!-- Bootstrap -->
-  <link rel="stylesheet" href="/models/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/app/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/app/front/css/simple-sidebar.css">
   <link rel="stylesheet" href="/app/front/css/font-awesome/css/font-awesome.css">
  
@@ -22,18 +22,6 @@
   </head>
   <body >
     <div ui-view></div>
-   <script src="/models/jquery/jquery.min.js"></script>
-
-    <script src="/models/angularjs/angular.min.js"></script>
-    <script src="/models/angularjs/angular-ui-router.min.js"></script>
-
-    <script src="/models/angularjs/ui-bootstrap-tpls-1.0.3.min.js"></script>
-    
-  <script src="/models/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-   
-   <script src="/app/front/js/app.js"></script>
-
- 
-  <script src="/app/front/js/controllers.js"></script>
+    <script data-main="app/front/main" src="app/libs/require.js"></script>
   </body>
 </html>

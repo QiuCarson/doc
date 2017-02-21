@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" ng-app='myApp'>
+<html lang="zh-CN" >
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,7 @@
     <title>后台管理</title>
  
     <!-- Bootstrap -->
-  <link rel="stylesheet" href="/models/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/app/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css">
  
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,38 +20,25 @@
   </head>
   <body >
     <div ui-view></div>
-   <script src="/models/jquery/jquery.min.js"></script>
 
-    <script src="/models/angularjs/angular.min.js"></script>
-    <script src="/models/angularjs/angular-ui-router.min.js"></script>
-    <script src="/models/angularjs/angular-messages.js"></script>
-    <script src="/models/angularjs/tm.pagination.js"></script>
-    <script src="/models/angularjs/ui-bootstrap-tpls-1.0.3.min.js"></script>
-
-    
-  <script src="/models/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
   
   <!--编辑器-->
-<link rel="stylesheet" type="text/css" href="/models/angular-trix-master/dist/trix.css">
-
-<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
-<script src="/models/angular-trix-master/dist/trix.js"></script>
-<script src="/models/angular-trix-master/dist/angular-trix.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/app/libs/angular-trix-master/dist/trix.css">
 
 
 
-   <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    var base_url = '<?php echo route("admin") ?>';
-   var is_login = '<?php echo (new App\Models\User)->isAdminLogin() ?>';
+
+
+    <script data-main="app/admin/main" src="app/libs/require.js"></script>
+    <script>
+
+        /*$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });*/
+        var base_url = '<?php echo route("admin") ?>';
+        var is_login = '<?php echo (new App\Models\User)->isAdminLogin() ?>';
     </script>
-   <script src="/app/admin/js/app.js"></script>
-
- 
-  <script src="/app/admin/js/controllers.js"></script>
   </body>
 </html>

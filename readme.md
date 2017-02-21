@@ -21,3 +21,16 @@ php artisan make:seeder WebsiteTableSeeder
 php artisan db:seed
 添加单个数据
 php artisan db:seed  --class=PostTableSeeder
+
+V2.0版本修改
+
+使用requestjs 控制器分多个文件
+后台
+http://www.XXXX.com/admin
+测试账号 admin@qq.com 密码 123456
+
+前台
+http://www.XXXX.com/
+
+
+
