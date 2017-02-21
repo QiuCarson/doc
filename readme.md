@@ -15,6 +15,7 @@ php artisan migrate 添加表
 php artisan make:seeder UserTableSeeder
 
 php artisan make:seeder ProjectTableSeeder
+
 php artisan make:seeder WebsiteTableSeeder
 
 添加测试数据
