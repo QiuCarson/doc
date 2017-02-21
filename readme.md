@@ -10,3 +10,14 @@ php artisan migrate 添加表
 
 2016-01-18 这个系统基本完成，只能说可以用了
 
+
+创建测试数据
+php artisan make:seeder UserTableSeeder
+
+php artisan make:seeder ProjectTableSeeder
+php artisan make:seeder WebsiteTableSeeder
+
+添加测试数据
+php artisan db:seed
+添加单个数据
+php artisan db:seed  --class=PostTableSeeder
