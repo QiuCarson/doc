@@ -15,10 +15,7 @@ require.config({
         "route" : "js/appRoute",
 
         "app" : "controllers/app",
-        "indexController" : "controllers/indexController",
-        "alllistController" : "controllers/alllistController",
-        "listController" : "controllers/listController",
-        "postsController" : "controllers/postsController",
+        "main-controller" : "controllers/mainController",
     },
     shim: {
         'angular': {
@@ -31,7 +28,7 @@ require.config({
     }
 })
 
-require(['jquery','angular','angular-route','app','route','indexController','indexController','listController','postsController'],function ($,angular){
+require(['jquery','angular','angular-route','app','route','main-controller'],function ($,angular){
 
     $(function () {
         //angular.bootstrap只会绑定第一次加载的对象
