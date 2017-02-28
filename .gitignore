@@ -3,3 +3,4 @@
 Homestead.yaml
 Homestead.json
 .env
+database/seeds/create_projects_table.php

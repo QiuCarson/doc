@@ -6,6 +6,9 @@ composer install
 
 php artisan migrate 添加表
 
+
+
+
 要给目录权限不然程序会500错误
 
 2016-01-18 这个系统基本完成，只能说可以用了
@@ -17,6 +20,8 @@ php artisan make:seeder UserTableSeeder
 php artisan make:seeder ProjectTableSeeder
 
 php artisan make:seeder WebsiteTableSeeder
+
+php artisan make:seeder create_projects_table
 
 添加测试数据
 

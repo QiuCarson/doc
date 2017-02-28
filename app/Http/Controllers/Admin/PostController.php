@@ -130,8 +130,10 @@ class PostController extends Controller
         //网站列表
         $data['websites']=Website::orderby('websites_id','desc')->get();
         $data['projects']=Project::orderby('projects_id','desc')->get();
-        $data['posts_content']=file_get_contents("http://www.doc.com/app/admin/tpl/posts/default.html");
-
+        $default_file=$_SERVER["DOCUMENT_ROOT"]."/app/admin/tpl/posts/default.html";
+        if(file_exists($default_file)){
+            $data['posts_content']=file_get_contents($default_file);
+        }
         return response()->json(['status'=>true,'message'=>'数据查询成功','data'=>$data]);
     }
 }

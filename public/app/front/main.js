@@ -25,6 +25,9 @@ require.config({
             deps: ["angular"],
             exports: 'angular-route'
         },
+        'main-controller':{
+            deps: ["angular"]
+        },
     }
 })
 
