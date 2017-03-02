@@ -32,6 +32,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
     Route::group(['prefix' => 'posts'], function () {
         Route::get('/list/{current_page}', 'PostController@index');
         /*->where('current_page', '\d+');*/
+        Route::post('/list/search', 'PostController@index');
         Route::get('/delete/{id}', 'PostController@delete');
         Route::post('/create', 'PostController@create');
         Route::get('/edit/{id}', 'PostController@edit');
@@ -43,6 +44,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
 
     Route::group(['prefix' => 'websites'], function () {
         Route::get('/list/{current_page}', 'WebsiteController@index');
+
         /*->where('current_page', '\d+');*/
         Route::get('/delete/{id}', 'WebsiteController@delete');
         Route::post('/create', 'WebsiteController@create');

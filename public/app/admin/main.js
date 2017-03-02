@@ -16,6 +16,7 @@ require.config({
         "angular-pagination":"../libs/angularjs/tm.pagination",
         "angular-bootstrap":"../libs/angularjs/ui-bootstrap-tpls-1.0.3.min",
 
+
         "trix":"../libs/angular-trix-master/dist/trix",
         "angular-trix":"../libs/angular-trix-master/dist/angular-trix.min",
 

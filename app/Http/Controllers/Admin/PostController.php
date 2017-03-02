@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+//use App\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Post;
@@ -20,20 +20,25 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($current_page)
+    public function index($current_page,Request $requests)
     {
-        
+
+        //$current_page=$requests->input('current_page');
         $current_page=$current_page?$current_page:1;
         $current_page=$current_page-1;
-
+        $keyword=$requests->input('keyword');
+        //return response()->json($current_page);
         $page=10;
         //echo $current_page*$page;exit;
-        $post = Post::leftJoin('websites', 'posts.website', '=', 'websites.websites_id')
-            ->leftJoin('projects', 'posts.project', '=', 'projects.projects_id')
-         ->orderby('posts_id','desc')->offset($current_page*$page)->limit($page);
-        $posts['data']=$post->get();
+        $postMode = Post::leftJoin('websites', 'posts.website', '=', 'websites.websites_id')
+            ->leftJoin('projects', 'posts.project', '=', 'projects.projects_id');
+        if($keyword){
+            $postMode=$postMode->where('posts_title', 'like', '%'.$keyword.'%');
+        }
+        $postMode=$postMode->orderby('posts_id','desc')->offset($current_page*$page)->limit($page);
+        $posts['data']=$postMode->get();
 
-        $posts['count'] =Post::count();
+        $posts['count'] =$postMode->count();
         $posts['pageSize']=$page;
         
 

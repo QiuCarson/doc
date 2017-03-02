@@ -1,5 +1,5 @@
 define(['app'], function(app) {
-    app.controller('postsListController',['$scope','$http','$state',function($scope, $http, $state){
+    app.controller('postsListController',['$scope','$http','$state','$stateParams',function($scope, $http, $state, $stateParams){
             $scope.currentPage = 1;
 
             $scope.maxSize=5;
@@ -18,10 +18,32 @@ define(['app'], function(app) {
 
                     });
             }
+            $scope.search=function(){
+                $http.post( '/admin/posts/list/search',{
+                        keyword: $scope.posts.keyword
+                })
+                    .then(function(response) {
+
+                        $scope.list=response.data.data;
+                        // $scope.count = response.data.count;
+                        // $scope.pageSize=response.data.pageSize;
+                        // $scope.totalPage = Math.ceil($scope.count / $scope.pageSize);
+
+                        $scope.totalItems=response.data.count;
+                        $scope.itemsPerPage=response.data.pageSize;
+                        $scope.numPages=Math.ceil($scope.count / $scope.pageSize);
+
+                    });
+            }
+
             $scope.load();
 
             $scope.pageChanged = function() {
-                $scope.load();
+                //$scope.load();
+                $http.get( '/admin/posts/list/'+$scope.currentPage)
+                    .then(function(response) {
+                        $scope.list=response.data.data;
+                    })
             };
             $scope.deleted =function(id){
                 if(!confirm("确定删除？")){
