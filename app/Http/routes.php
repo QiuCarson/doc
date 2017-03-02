@@ -30,7 +30,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => 'auth']
 
     
     Route::group(['prefix' => 'posts'], function () {
-        Route::get('/list/{current_page}', 'PostController@index');
+        //Route::get('/list/{current_page}', 'PostController@index');
+        Route::post('/list', 'PostController@index');
         /*->where('current_page', '\d+');*/
         Route::post('/list/search', 'PostController@index');
         Route::get('/delete/{id}', 'PostController@delete');

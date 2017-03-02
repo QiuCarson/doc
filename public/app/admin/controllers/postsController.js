@@ -2,9 +2,13 @@ define(['app'], function(app) {
     app.controller('postsListController',['$scope','$http','$state','$stateParams',function($scope, $http, $state, $stateParams){
             $scope.currentPage = 1;
 
-            $scope.maxSize=5;
+            $scope.setPage = function (pageNo) {
+                $scope.currentPage = pageNo;
+            };
             $scope.load=function(){
-                $http.get( '/admin/posts/list/'+$scope.currentPage)
+                $http.post( '/admin/posts/list',{
+                    currentPage:$scope.currentPage
+                })
                     .then(function(response) {
 
                         $scope.list=response.data.data;
@@ -20,7 +24,8 @@ define(['app'], function(app) {
             }
             $scope.search=function(){
                 $http.post( '/admin/posts/list/search',{
-                        keyword: $scope.posts.keyword
+                        keyword: $scope.posts.keyword,
+                        currentPage:$scope.currentPage
                 })
                     .then(function(response) {
 
@@ -37,13 +42,25 @@ define(['app'], function(app) {
             }
 
             $scope.load();
-
+            $scope.maxSize=2;
             $scope.pageChanged = function() {
                 //$scope.load();
-                $http.get( '/admin/posts/list/'+$scope.currentPage)
-                    .then(function(response) {
-                        $scope.list=response.data.data;
+                $http.post( '/admin/posts/list',{
+                        currentPage:$scope.currentPage
                     })
+                    .then(function(response) {
+
+                        $scope.list=response.data.data;
+                        // $scope.count = response.data.count;
+                        // $scope.pageSize=response.data.pageSize;
+                        // $scope.totalPage = Math.ceil($scope.count / $scope.pageSize);
+
+                        //$scope.totalItems=response.data.count;
+                        //$scope.itemsPerPage=response.data.pageSize;
+                        //$scope.numPages=Math.ceil($scope.count / $scope.pageSize);
+
+                    });
+
             };
             $scope.deleted =function(id){
                 if(!confirm("确定删除？")){

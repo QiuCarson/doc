@@ -13,7 +13,7 @@ require.config({
         "angular" : "../libs/angularjs/angular.min",
         "angular-route" : "../libs/angularjs/angular-ui-router.min",
         "angular-messages":"../libs/angularjs/angular-messages",
-        "angular-pagination":"../libs/angularjs/tm.pagination",
+       // "angular-pagination":"../libs/angularjs/tm.pagination",
         "angular-bootstrap":"../libs/angularjs/ui-bootstrap-tpls-1.0.3.min",
 
 

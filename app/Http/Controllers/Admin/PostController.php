@@ -20,14 +20,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($current_page,Request $requests)
+    public function index(Request $requests)
     {
 
-        //$current_page=$requests->input('current_page');
+        $current_page=intval($requests->input('currentPage'));
+        //return response()->json($requests);
         $current_page=$current_page?$current_page:1;
         $current_page=$current_page-1;
         $keyword=$requests->input('keyword');
-        //return response()->json($current_page);
+
         $page=10;
         //echo $current_page*$page;exit;
         $postMode = Post::leftJoin('websites', 'posts.website', '=', 'websites.websites_id')
@@ -40,7 +41,7 @@ class PostController extends Controller
 
         $posts['count'] =$postMode->count();
         $posts['pageSize']=$page;
-        
+        //$posts['current_page']=$requests;
 
         return response()->json($posts);
     }
